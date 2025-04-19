@@ -1,0 +1,17 @@
+{
+  "files.associations": {
+    "random": "cpp",
+    "limits": "cpp",
+    "algorithm": "cpp",
+    "functional": "cpp",
+    "vector": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "string_view": "cpp",
+    "initializer_list": "cpp",
+    "utility": "cpp",
+    "*.tcc": "cpp"
+  }
+}
