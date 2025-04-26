@@ -1,23 +1,62 @@
 #include <iostream>
 #include <vector>
+#include <functional>
+#include <climits>
+#include <limits>
+#include <queue>
 
+using ll = long long;
+typedef std::vector<ll> vec;
+using std::queue;
 using std::vector;
 
-int negative_cycle(vector<vector<int> > &adj, vector<vector<int> > &cost) {
-  //write your code here
-  return 0;
+static const ll INF = std::numeric_limits<int>::max();
+
+struct Edge
+{
+  int u, v;
+  ll w;
+};
+
+bool bellmanFord(
+    int n,
+    const std::vector<Edge> &edges)
+{
+  std::vector<ll> dist(n, INF);
+  dist[0] = 0;
+
+  for (int i = 1; i < n; ++i)
+  {
+    bool any = false;
+    for (auto &e : edges)
+    {
+      if ( dist[e.v] > dist[e.u] + e.w)
+      {
+        dist[e.v] = dist[e.u] + e.w;
+        any = true;
+      }
+    }
+    if (!any)
+      break;
+  }
+
+  for (auto &e : edges)
+  {
+    if (dist[e.v] > dist[e.u] + e.w)
+      return true;
+  }
+  return false;
 }
 
-int main() {
+int main()
+{
   int n, m;
   std::cin >> n >> m;
-  vector<vector<int> > adj(n, vector<int>());
-  vector<vector<int> > cost(n, vector<int>());
-  for (int i = 0; i < m; i++) {
-    int x, y, w;
-    std::cin >> x >> y >> w;
-    adj[x - 1].push_back(y - 1);
-    cost[x - 1].push_back(w);
+  std::vector<Edge> edges(m);
+
+  for (int i = 0; i < m; i++)
+  {
+    std::cin >> edges[i].u >> edges[i].v >> edges[i].w;
   }
-  std::cout << negative_cycle(adj, cost);
+  std::cout << bellmanFord(n, edges);
 }
